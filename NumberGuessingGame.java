@@ -1,7 +1,7 @@
 import java.util.Random;
 import java.util.Scanner;
 
-public class NumberGuessingGame {
+public class NumberGussingGame{
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -9,53 +9,45 @@ public class NumberGuessingGame {
 
         int minRange = 1;
         int maxRange = 100;
-        int maxAttempts = 5;
-        int rounds = 0;
-        int score = 0;
+        int maxAttempts = 8;
 
         boolean playAgain = true;
 
-        System.out.println("Welcome to the Number Guessing Game!");
+        System.out.println("I'm thinking of a number between 1 and 100!");
 
         while (playAgain) {
             int targetNumber = random.nextInt(maxRange - minRange + 1) + minRange;
             int attempts = 0;
-            boolean guessedCorrectly = false;
 
-            System.out.println("\nRound " + (rounds + 1));
-            System.out.println("I have selected a number between " + minRange + " and " + maxRange + ".");
-            System.out.println("You have " + maxAttempts + " attempts to guess the number.");
+            System.out.println("\nNew Round!");
+            System.out.println("I've chosen a mysterious number between " + minRange + " and " + maxRange + ".");
+            System.out.println("You have " + maxAttempts + " attempts to unveil the mystery.");
 
-            while (attempts < maxAttempts && !guessedCorrectly) {
-                System.out.print("Enter your guess: ");
+            while (attempts < maxAttempts) {
+                System.out.print("Take a guess: ");
                 int userGuess = scanner.nextInt();
                 attempts++;
 
                 if (userGuess == targetNumber) {
-                    guessedCorrectly = true;
-                    score += maxAttempts - attempts + 1;
-                    System.out.println("Congratulations! You guessed the number in " + attempts + " attempts.");
+                    System.out.println("Hooray! You've cracked the mystery number " + targetNumber + " in just " + attempts + " attempts.");
+                    break;
                 } else if (userGuess < targetNumber) {
-                    System.out.println("Too low! Attempts remaining: " + (maxAttempts - attempts));
+                    System.out.println("Your guess is too low. Remaining attempts: " + (maxAttempts - attempts));
                 } else {
-                    System.out.println("Too high! Attempts remaining: " + (maxAttempts - attempts));
+                    System.out.println("Your guess is too high. Remaining attempts: " + (maxAttempts - attempts));
                 }
             }
 
-            if (!guessedCorrectly) {
-                System.out.println("Sorry, you're out of attempts. The correct number was: " + targetNumber);
+            if (attempts == maxAttempts) {
+                System.out.println("Oops, you've used all your attempts. The hidden number was: " + targetNumber);
             }
 
-            rounds++;
-            System.out.print("Do you want to play again? (yes/no): ");
-            String playAgainChoice = scanner.next().toLowerCase();
-            playAgain = playAgainChoice.equals("yes") || playAgainChoice.equals("y");
+            System.out.print("Would you like to play again? (yes/no): ");
+            String choice = scanner.next().toLowerCase();
+            playAgain = choice.equals("yes") || choice.equals("y");
         }
 
-        System.out.println("\nGame Over!");
-        System.out.println("Total Rounds: " + rounds);
-        System.out.println("Total Score: " + score);
-
+        System.out.println("Thank you for delving into the Mystery Number Game!");
         scanner.close();
     }
 }
